@@ -188,4 +188,9 @@ resource "aws_ecs_service" "fargate_service" {
     aws_ecs_cluster.this,
     aws_lb_listener_rule.fargate_spot_rule
   ]
+
+  lifecycle {
+    // 外部（CodeDeploy 等）で更新された task_definition の変更は無視する
+    ignore_changes = [ task_definition ]
+  }  
 }
